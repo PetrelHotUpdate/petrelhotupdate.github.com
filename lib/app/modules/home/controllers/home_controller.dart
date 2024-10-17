@@ -1,23 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class HomeController extends GetxController {
-  //TODO: Implement HomeController
+class HomeController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  late TabController tabController;
 
-  final count = 0.obs;
   @override
-  void onInit() {
+  onInit() {
     super.onInit();
+    tabController = TabController(length: 2, vsync: this);
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  goToWebSite() {
+    launchUrl(
+        Uri.parse('https://github.com/PetrelHotUpdate/petrel_app_example'));
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }
