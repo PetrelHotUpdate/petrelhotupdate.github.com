@@ -9,28 +9,35 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsDocsGen {
+  const $AssetsDocsGen();
+
+  /// File path: assets/docs/docs_config.json
+  String get docsConfig => 'assets/docs/docs_config.json';
+
+  /// List of all assets
+  List<String> get values => [docsConfig];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/petrel.jpeg
-  AssetGenImage get petrel => const AssetGenImage('assets/images/petrel.jpeg');
+  /// File path: assets/images/petrel.png
+  AssetGenImage get petrel => const AssetGenImage('assets/images/petrel.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [petrel];
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
+  static const $AssetsDocsGen docs = $AssetsDocsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
 
   final String _assetName;
 
@@ -58,7 +65,7 @@ class AssetGenImage {
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {
@@ -90,15 +97,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -18,18 +18,34 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Petrel（海燕）Flutter热更新框架 - 基于Flutter Web的热更新技术，让你的Flutter应用支持动态更新">
+  <meta name="keywords" content="Flutter, 热更新, Hot Update, Petrel, 海燕, Flutter Web">
+  <meta name="author" content="Petrel Hot Update Team">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="web_site">
+  <meta name="apple-mobile-web-app-title" content="Petrel">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>web_site</title>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petrelhotupdate.github.io/">
+  <meta property="og:title" content="Petrel（海燕）Flutter热更新框架">
+  <meta property="og:description" content="基于Flutter Web的热更新技术，让你的Flutter应用支持动态更新">
+  <meta property="og:image" content="icons/Icon-512.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://petrelhotupdate.github.io/">
+  <meta property="twitter:title" content="Petrel（海燕）Flutter热更新框架">
+  <meta property="twitter:description" content="基于Flutter Web的热更新技术，让你的Flutter应用支持动态更新">
+  <meta property="twitter:image" content="icons/Icon-512.png">
+
+  <title>Petrel（海燕）Flutter热更新框架</title>
   <link rel="manifest" href="manifest.json">
 
   <script>
@@ -38,8 +54,68 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+
+  <style>
+    /* Loading animation */
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    .loading-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      animation: pulse 2s infinite;
+    }
+    
+    .loading-text {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .loading-subtitle {
+      font-size: 16px;
+      opacity: 0.8;
+      margin-bottom: 32px;
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
+  <div id="loading" class="loading">
+    <img src="icons/Icon-192.png" alt="Petrel Logo" class="loading-logo">
+    <div class="loading-text">Petrel（海燕）</div>
+    <div class="loading-subtitle">Flutter热更新框架</div>
+    <div class="loading-spinner"></div>
+  </div>
+
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
@@ -49,6 +125,8 @@
         },
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
+            // Hide loading screen
+            document.getElementById('loading').style.display = 'none';
             appRunner.runApp();
           });
         }

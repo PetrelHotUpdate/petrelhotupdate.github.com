@@ -1,23 +1,25 @@
 {
-    "name": "web_site",
-    "short_name": "web_site",
-    "start_url": ".",
+    "name": "Petrel（海燕）Flutter热更新框架",
+    "short_name": "Petrel",
+    "description": "基于Flutter Web的热更新技术，让你的Flutter应用支持动态更新",
+    "start_url": "/",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FFFFFF",
+    "theme_color": "#1976D2",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
         {
             "src": "icons/Icon-192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "icons/Icon-512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "icons/Icon-maskable-192.png",
@@ -31,5 +33,7 @@
             "type": "image/png",
             "purpose": "maskable"
         }
-    ]
+    ],
+    "categories": ["developer", "productivity", "utilities"],
+    "lang": "zh-CN"
 }
