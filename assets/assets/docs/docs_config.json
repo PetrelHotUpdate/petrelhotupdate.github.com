@@ -1,0 +1,134 @@
+{
+  "docs": [
+    {
+      "id": "getting-started",
+      "title": "快速开始",
+      "icon": "🚀",
+      "order": 1,
+      "children": [
+        {
+          "id": "installation",
+          "title": "安装指南",
+          "file": "getting-started/installation.md",
+          "order": 1
+        },
+        {
+          "id": "quick-start",
+          "title": "快速上手",
+          "file": "getting-started/quick-start.md",
+          "order": 2
+        },
+        {
+          "id": "basic-concepts",
+          "title": "基本概念",
+          "file": "getting-started/basic-concepts.md",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "title": "架构设计",
+      "icon": "🏗️",
+      "order": 2,
+      "children": [
+        {
+          "id": "overview",
+          "title": "架构概览",
+          "file": "architecture/overview.md",
+          "order": 1
+        },
+        {
+          "id": "layers",
+          "title": "六层架构详解",
+          "file": "architecture/layers.md",
+          "order": 2
+        },
+        {
+          "id": "components",
+          "title": "核心组件",
+          "file": "architecture/components.md",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "features",
+      "title": "功能特性",
+      "icon": "✨",
+      "order": 3,
+      "children": [
+        {
+          "id": "hot-update",
+          "title": "热更新机制",
+          "file": "features/hot-update.md",
+          "order": 1
+        },
+        {
+          "id": "cross-platform",
+          "title": "跨平台支持",
+          "file": "features/cross-platform.md",
+          "order": 2
+        },
+        {
+          "id": "performance",
+          "title": "性能优化",
+          "file": "features/performance.md",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "api-reference",
+      "title": "API参考",
+      "icon": "📚",
+      "order": 4,
+      "children": [
+        {
+          "id": "core-api",
+          "title": "核心API",
+          "file": "api-reference/core-api.md",
+          "order": 1
+        },
+        {
+          "id": "plugin-api",
+          "title": "插件API",
+          "file": "api-reference/plugin-api.md",
+          "order": 2
+        },
+        {
+          "id": "examples",
+          "title": "使用示例",
+          "file": "api-reference/examples.md",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "title": "高级主题",
+      "icon": "🔧",
+      "order": 5,
+      "children": [
+        {
+          "id": "customization",
+          "title": "自定义配置",
+          "file": "advanced/customization.md",
+          "order": 1
+        },
+        {
+          "id": "deployment",
+          "title": "部署指南",
+          "file": "advanced/deployment.md",
+          "order": 2
+        },
+        {
+          "id": "troubleshooting",
+          "title": "故障排除",
+          "file": "advanced/troubleshooting.md",
+          "order": 3
+        }
+      ]
+    }
+  ]
+} 
