@@ -26,7 +26,7 @@ jobs:
         run: flutter build web --release --web-renderer=html --dart-define=HOST=https://petrelhotupdate.github.io
      
       - name: Upload Web Build Files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: web-release
           path: ./build/web
@@ -38,7 +38,7 @@ jobs:
 
     steps:
     - name: Download Web Release
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: web-release
 
