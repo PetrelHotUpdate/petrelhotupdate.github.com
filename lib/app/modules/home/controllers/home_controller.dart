@@ -1,83 +1,105 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../core/constants/app_constants.dart';
-import '../../../routes/app_pages.dart';
+import '../../../core/constants/performance_config.dart';
 
-class HomeController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class HomeController extends GetxController with GetSingleTickerProviderStateMixin {
+  final isLoading = false.obs;
+  final performanceMode = PerformanceConfig.defaultMode.obs;
   late TabController tabController;
-  final RxInt currentTabIndex = 0.obs;
-  final RxBool isLoading = false.obs;
 
   @override
   void onInit() {
     super.onInit();
+    
+    // 创建TabController
     tabController = TabController(length: 3, vsync: this);
-    tabController.addListener(() {
-      currentTabIndex.value = tabController.index;
-    });
+    
+    // 自动检测设备性能并设置合适的模式
+    _autoDetectPerformanceMode();
+  }
+
+  void _autoDetectPerformanceMode() {
+    try {
+      final devicePixelRatio = Get.mediaQuery.devicePixelRatio;
+      final screenWidth = Get.mediaQuery.size.width;
+      final screenHeight = Get.mediaQuery.size.height;
+      
+      // 估算内存大小（这里使用一个简单的估算方法）
+      final estimatedMemory = _estimateMemorySize();
+      
+      final autoMode = PerformanceConfig.getAutoPerformanceMode(
+        devicePixelRatio: devicePixelRatio,
+        screenWidth: screenWidth,
+        screenHeight: screenHeight,
+        memorySize: estimatedMemory,
+      );
+      
+      performanceMode.value = autoMode;
+      
+      print('自动检测性能模式: $autoMode');
+      print(
+          '设备信息: DPR=$devicePixelRatio, 屏幕=${screenWidth}x$screenHeight, 估算内存=${estimatedMemory}MB');
+    } catch (e) {
+      print('性能检测失败，使用默认模式: $e');
+      performanceMode.value = PerformanceConfig.defaultMode;
+    }
+  }
+
+  int _estimateMemorySize() {
+    // 简单的内存估算，实际项目中可以使用更准确的方法
+    try {
+      // 这里可以根据平台获取实际内存信息
+      // 暂时使用一个基于屏幕分辨率的估算
+      final screenWidth = Get.mediaQuery.size.width;
+      final screenHeight = Get.mediaQuery.size.height;
+      final pixelCount = screenWidth * screenHeight;
+      
+      if (pixelCount > 2000000) return 8000; // 4K+ 屏幕
+      if (pixelCount > 1000000) return 4000; // 2K 屏幕
+      if (pixelCount > 500000) return 2000; // 1080p 屏幕
+      return 1000; // 低分辨率屏幕
+    } catch (e) {
+      return 2000; // 默认值
+    }
+  }
+
+  void setPerformanceMode(String mode) {
+    if (PerformanceConfig.particleCounts.containsKey(mode)) {
+      performanceMode.value = mode;
+      update(); // 通知UI更新
+    }
+  }
+
+  void togglePerformanceMode() {
+    final modes = PerformanceConfig.particleCounts.keys.toList();
+    final currentIndex = modes.indexOf(performanceMode.value);
+    final nextIndex = (currentIndex + 1) % modes.length;
+    setPerformanceMode(modes[nextIndex]);
+  }
+
+  void goToGitHub() async {
+    const url = 'https://github.com/your-repo/petrel-hot-update';
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    }
+  }
+
+  void goToDocs() {
+    Get.toNamed('/docs');
+  }
+
+  void goToDemo() {
+    Get.snackbar(
+      '演示功能',
+      '演示页面正在开发中...',
+      snackPosition: SnackPosition.BOTTOM,
+    );
   }
 
   @override
   void onClose() {
     tabController.dispose();
     super.onClose();
-  }
-
-  // 导航到GitHub
-  Future<void> goToGitHub() async {
-    await _launchUrl(AppConstants.githubUrl);
-  }
-
-  // 导航到文档页面
-  void goToDocs() {
-    Get.toNamed(Routes.DOCS);
-  }
-
-  // 导航到演示页面
-  Future<void> goToDemo() async {
-    await _launchUrl(AppConstants.demoUrl);
-  }
-
-  // 启动URL
-  Future<void> _launchUrl(String url) async {
-    isLoading.value = true;
-    try {
-      final uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      } else {
-        Get.snackbar(
-          '错误',
-          '无法打开链接: $url',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-      }
-    } catch (e) {
-      Get.snackbar(
-        '错误',
-        '打开链接时发生错误: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
-  // 复制代码到剪贴板
-  void copyToClipboard(String text) {
-    // 这里可以添加复制到剪贴板的功能
-    Get.snackbar(
-      '成功',
-      '代码已复制到剪贴板',
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-    );
   }
 }
